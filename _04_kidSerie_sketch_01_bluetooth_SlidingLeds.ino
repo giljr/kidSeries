@@ -15,7 +15,7 @@
    MCU:       Arduino 1.6.12 - @16MHz       http://www.arduino.cc/
    IC Chip:   Bluetooth Datasheet - HC-06   https://goo.gl/s9ZcNC
    Connections:
-      See Official youtube channel vids:
+      See Official youtube channel vids: https://youtu.be/ze7X0j8DtBA
    Based on:   Control 5 leds using arduino and app inventor.
                https://youtu.be/8CjL5JB6YfI
    Code by Mohamed Aly
