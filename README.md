@@ -1,7 +1,7 @@
 # kidSeries
 kidStronics youtube channel repo: https://goo.gl/cxn6t1
 
-Project: 00 #kidSerie - Hello World MIT App Inventor vid: https://youtu.be/9AutSoBpTLc page: medium.com/kidsTronics: goo.gl/eBR867
+Project: 00 #kidSerie - Hello World MIT App Inventor vid: https://youtu.be/9AutSoBpTLc page: medium.com/kidsTronics: https://goo.gl/eBR867
 
 Project: 01 #Kidserie - #ArduinoMeetsMITApp - File1: _01_kidSerie_sketch_01.ConfigBT.ino  file2: _01_kidSerie_sketch_02.HelloBT.ino  
             #kidStronics vid: https://youtu.be/u1xqW6qtFXs file2: _01_kidSerie_sketch_01.ConfigBT.ino vid: https://youtu.be/lvLnOyy7pbo   
