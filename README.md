@@ -1,5 +1,5 @@
 # kidSeries
-kidStronics youtube channel repo: https://goo.gl/cxn6t1
+kidsTronics youtube channel repo: https://goo.gl/cxn6t1
 
 Project: 00 #kidSerie - Hello World MIT App Inventor vid: https://youtu.be/9AutSoBpTLc page: medium.com/kidsTronics: https://goo.gl/eBR867
 
@@ -13,7 +13,5 @@ Project: 03 #kidSerie - MIT App Inventor 2 Meets Esp8266!!! vid: https://goo.gl/
 
 Project: 04 #kidSerie - Arduino + HC06 + MIT App Inventor 2 + Sliding Leds - file: 04_kidSerie_sketch_01_bluetooth_SlidingLeds.ino vid:               https://youtu.be/ze7X0j8DtBA page: https://goo.gl/A3mQJW
 
-Project: 05 #kidSerie - Adafruit-IO Meets ESP8266, Arduino & MIT App Inventor 2 file1: _05_kidSerie_sketch_01.DHTServer.ino file3:  
-           _05_kidSerie_sketch_03.Adafruit_Fisrt_feeds.ino file4:_05_kidSerie_sketch_04.Adafruit_Forth_Try.ino file5:  
-           _05_kidSerie_sketch_05.Adafruit_First_Try.ino  vid:soon! page:soon!
+Project: 05 #kidSerie - Adafruit-IO Meets ESP8266, Arduino & MIT App Inventor 2 file1: _05_kidSerie_sketch_01.DHTServer.ino file3: _05_kidSerie_sketch_03.Adafruit_Fisrt_feeds.ino file4:_05_kidSerie_sketch_04.Adafruit_Forth_Try.ino file5: _05_kidSerie_sketch_05.Adafruit_First_Try.ino  vid:soon! page:soon!
 
