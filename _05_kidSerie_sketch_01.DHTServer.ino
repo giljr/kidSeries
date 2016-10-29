@@ -46,8 +46,8 @@
 
 /************************* WiFi Access Point *********************************/
 
-const char* ssid     = "colibri"; //"YourRouterID";
-const char* password = "jr10589238"; //"YourRouterPassword";
+const char* ssid     = "YourRouterID";
+const char* password = "YourRouterPassword";
 
 ESP8266WebServer server(80);
 
