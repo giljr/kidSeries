@@ -58,15 +58,15 @@
 
 /************************* WiFi Access Point *********************************/
 
-#define WLAN_SSID       "colibri" //"...your SSID..."
-#define WLAN_PASS       "jr10589238"//"...your password..."
+#define WLAN_SSID       "...your SSID..."
+#define WLAN_PASS       "...your password..."
 
 /************************* Adafruit.io Setup *********************************/
 
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883                   // use 8883 for SSL
-#define AIO_USERNAME    "giljr"// "...your AIO username (see https://accounts.adafruit.com)..."
-#define AIO_KEY         "6dfe661db07e4b3cbd109d064c778e55" // "...your AIO key..."
+#define AIO_USERNAME    "...your AIO username (see https://accounts.adafruit.com)..."
+#define AIO_KEY         "...your AIO key..."
 
 /************ Global State (you don't need to change this!) ******************/
 
