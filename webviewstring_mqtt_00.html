@@ -1,0 +1,54 @@
+<!doctype html>
+<head>  
+  <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">    
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="./jquery311.js"></script>  -->        
+  <script type="text/javascript" src="https://github.com/adafruit/io-issues/releases/download/mqttjs/mqtt.js"></script>
+   <!-- <script type="text/javascript" src="./mqtt.js"></script> -->
+ 
+  <script type="text/javascript">
+    
+    var suffix =  'temp';            
+    
+    var url = 'wss://io.adafruit.com:443/mqtt/',
+    username = 'giljr',  //username = 'YOUR_USERNAME_HERE',
+    aio_key = '6dfe661db07e4b3cbd109d064c778e55', //aio_key = 'YOUR_KEY_HERE',
+    topic = username + '/feeds/'+ suffix;
+    
+    
+      var client = mqtt.connect(url, {
+            username: username,
+            password: aio_key
+       });
+      
+      client.on('connect', function() {
+          
+            client.subscribe(topic);
+            client.subscribe(username + '/errors');
+            client.subscribe(username + '/throttle');         
+                    
+      });
+      
+          client.on('error', function(e) {
+            $('pre').append('ERROR: ' + e + '\n');
+      });
+      
+          client.on('message', function(topic, payload) {
+          $('pre').append('/feeds/'+ suffix +'/ value: '+ payload+ '\n');
+                       
+      });
+              
+  </script>
+  
+</head>
+
+<body>   
+
+    <h1>Adafruit IO MQTT Websocket Demo</h1> 
+    
+    <pre></pre> 
+
+</body>
+
+</html>
