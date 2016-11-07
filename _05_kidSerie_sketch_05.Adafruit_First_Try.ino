@@ -21,7 +21,7 @@
    DHT11:                PRODUCT ID: 386               https://www.adafruit.com/product/386
 
    Connections:
-      See Official youtube channel vids:
+      See Official youtube channel vids: https://youtu.be/cwYix_Oyui4 
    Based on:   Tony DiCola for Adafruit Industries - see below!
 
    This program is free software: you can redistribute it and/or modify
