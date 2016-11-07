@@ -36,7 +36,7 @@
       
           client.on('message', function(topic, payload) {
           $('pre').append('/feeds/'+ suffix +'/ value: '+ payload+ '\n');
-                       
+          window.AppInventor.setWebViewString(' '+ payload);                       
       });
               
   </script>
