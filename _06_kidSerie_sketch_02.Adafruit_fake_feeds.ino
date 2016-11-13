@@ -44,6 +44,13 @@
 /******************************* Esp8266**************************************/
 
 #include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
+
+/******************************* DHT Config **********************************/
+#include <DHT.h>
+#define DHTTYPE DHT11
+#define DHTPIN  2
 
 /************************* WiFi Access Point *********************************/
 
@@ -71,16 +78,35 @@ Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO
 /****************************** Topics ***************************************/
 // Setup a feed called 'photocell' for publishing.
 // Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
-Adafruit_MQTT_Publish photocell = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/photocell");
+Adafruit_MQTT_Publish temp_topic = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/temp");
 /****************************** Subscriptions*********************************/
 // Setup a feed called 'photocell' for subscribing to changes.
-Adafruit_MQTT_Subscribe photocell_subsc = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/photocell");
+Adafruit_MQTT_Subscribe temp_subscription = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/temp");
 
 /***************************  MQTT Conn   ************************************/
 
 // Bug workaround for Arduino 1.6.6, it seems to need a function declaration
 // for some reason (only affects ESP8266, likely an arduino-builder bug).
 void MQTT_connect();
+
+/*************************** DHT Init   **************************************/
+// Initialize DHT sensor
+// NOTE: For working with a faster than ATmega328p 16 MHz Arduino chip, like an ESP8266,
+// you need to increase the threshold for cycle counts considered a 1 or 0.
+// You can do this by passing a 3rd parameter for this threshold.  It's a bit
+// of fiddling to find the right value, but in general the faster the CPU the
+// higher the value.  The default for a 16mhz AVR is a value of 6.  For an
+// Arduino Due that runs at 84mhz a value of 30 works.
+// This is for the ESP8266 processor on ESP-01
+DHT dht(DHTPIN, DHTTYPE, 11); // 11 works fine for ESP8266
+/*************************** DHT Data   **************************************/
+//float humidity, temp_f;  // Values read from sensor Fahrenheit
+float humidity, temp_c;  // Values read from sensor as Celsius
+String tempString = "";   // String to display
+/*************************** DHT Timing   ************************************/
+// Generally, you should use "unsigned long" for variables that hold time
+unsigned long previousMillis = 0;        // will store last temp was read
+const long interval = 2000;              // interval at which to read sensor
 
 /****************************** Setup  ***************************************/
 void setup() {
@@ -105,13 +131,14 @@ void setup() {
   Serial.println("IP address: "); Serial.println(WiFi.localIP());
 
   // Setup MQTT subscription for onoff feed.
-  mqtt.subscribe(&photocell_subsc);
+  mqtt.subscribe(&temp_subscription);
 }
 
-uint32_t x=0;    // Mock data
+//uint32_t x=0;    // Mock data
 
 /****************************** Loop  ***************************************/
 void loop() {
+  gettemperature() ;
   // Ensure the connection to the MQTT server is alive (this will make the first
   // connection and automatically reconnect when disconnected).  See the MQTT_connect
   // function definition further below.
@@ -123,17 +150,17 @@ void loop() {
  /****************************** Subscript  ***********************************/
  Adafruit_MQTT_Subscribe *subscription;
   while ((subscription = mqtt.readSubscription(5000))) {
-    if (subscription == &photocell_subsc) {
+    if (subscription == &temp_subscription) {
       Serial.print(F("Got: "));
-      Serial.println((char *)photocell_subsc.lastread);
+      Serial.println((char *)temp_subscription.lastread);
     }
   }
  /****************************** Publish  **********************************/
    // Now we can publish stuff!
-  Serial.print(F("\nSending photocell val "));
-  Serial.print(x);
+  Serial.print(F("\nSending temp val "));
+  Serial.print(temp_c);
   Serial.print("...");
-  if (! photocell.publish(x++)) {
+  if (! temp_topic.publish(temp_c)) {
     Serial.println(F("Failed"));
   } else {
     Serial.println(F("OK!"));
@@ -175,3 +202,27 @@ void MQTT_connect() {
   }
   Serial.println("MQTT Connected!");
 }
+void gettemperature() {
+  // Wait at least 2 seconds seconds between measurements.
+  // if the difference between the current time and last time you read
+  // the sensor is bigger than the interval you set, read the sensor
+  // Works better than delay for things happening elsewhere also
+  unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis >= interval) {
+    // save the last time you read the sensor
+    previousMillis = currentMillis;
+
+    // Reading temperature for humidity takes about 250 milliseconds!
+    // Sensor readings may also be up to 2 seconds 'old' (it's a very slow sensor)
+    //humidity = dht.readHumidity();          // Read humidity (percent)
+    //temp_f = dht.readTemperature(true);     // Read temperature as Fahrenheit
+    temp_c = dht.readTemperature();    // Read temperature as Celsius
+    // Check if any reads failed and exit early (to try again).
+    if (isnan(temp_c) || temp_c != 0 )
+      if (isnan(temp_c)) {
+        Serial.println("Failed to read from DHT sensor!");
+        return;
+        }
+     }
+  }
