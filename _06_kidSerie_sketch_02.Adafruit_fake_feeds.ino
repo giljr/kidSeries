@@ -1,6 +1,6 @@
 /*
   Project name:
-     05 #kidSerie - Adafruit-IO Meets ESP8266, Arduino & MIT App Inventor 2
+     06 #kidSerie - Go code? Explainning My Approach As Hobbyist!!!
      (Awesome Smart Phone App!)
      Flavour III -
      Hex File: _06_kidSerie_sketch_02.Adafruit_fake_feeds.ino
