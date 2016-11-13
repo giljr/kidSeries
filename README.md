@@ -15,3 +15,5 @@ Project: 04 #kidSerie - Arduino + HC06 + MIT App Inventor 2 + Sliding Leds - fil
 
 Project: 05 #kidSerie - Adafruit-IO Meets ESP8266, Arduino & MIT App Inventor 2 file1: _05_kidSerie_sketch_01.DHTServer.ino file3: _05_kidSerie_sketch_03.Adafruit_Fisrt_feeds.ino file4:_05_kidSerie_sketch_04.Adafruit_Forth_Try.ino file5: _05_kidSerie_sketch_05.Adafruit_First_Try.ino file6 WebString.aio file7 webviewstring_mqtt_00.http vid:https://youtu.be/cwYix_Oyui4 page:https://goo.gl/prUSc3
 
+Project: 06 #kidSerie - Go code? Explainning My Approach As Hobbyist!!! __#kidSerie file1: _06_kidSerie_sketch_01.DHTServer.ino file2: _06_kidSerie_sketch_02.Adafruit_fake_feeds.ino page: vid:
+
