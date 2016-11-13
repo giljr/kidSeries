@@ -79,9 +79,11 @@ Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO
 // Setup a feed called 'photocell' for publishing.
 // Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
 Adafruit_MQTT_Publish temp_topic = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/temp");
+Adafruit_MQTT_Publish humid_topic = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/humid");
 /****************************** Subscriptions*********************************/
 // Setup a feed called 'photocell' for subscribing to changes.
 Adafruit_MQTT_Subscribe temp_subscription = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/temp");
+Adafruit_MQTT_Subscribe humid_subscription = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/humid");
 
 /***************************  MQTT Conn   ************************************/
 
@@ -98,7 +100,7 @@ void MQTT_connect();
 // higher the value.  The default for a 16mhz AVR is a value of 6.  For an
 // Arduino Due that runs at 84mhz a value of 30 works.
 // This is for the ESP8266 processor on ESP-01
-DHT dht(DHTPIN, DHTTYPE, 11); // 11 works fine for ESP8266
+DHT dht(DHTPIN, DHTTYPE, 15); // 11 works fine for ESP8266
 /*************************** DHT Data   **************************************/
 //float humidity, temp_f;  // Values read from sensor Fahrenheit
 float humidity, temp_c;  // Values read from sensor as Celsius
@@ -132,6 +134,8 @@ void setup() {
 
   // Setup MQTT subscription for onoff feed.
   mqtt.subscribe(&temp_subscription);
+  delay(1000);
+  mqtt.subscribe(&humid_subscription);
 }
 
 //uint32_t x=0;    // Mock data
@@ -153,6 +157,10 @@ void loop() {
     if (subscription == &temp_subscription) {
       Serial.print(F("Got: "));
       Serial.println((char *)temp_subscription.lastread);
+    } 
+    else {
+      Serial.print(F("Got humid: "));
+      Serial.println((char *)humid_subscription.lastread);
     }
   }
  /****************************** Publish  **********************************/
@@ -161,6 +169,15 @@ void loop() {
   Serial.print(temp_c);
   Serial.print("...");
   if (! temp_topic.publish(temp_c)) {
+    Serial.println(F("Failed"));
+  } else {
+    Serial.println(F("OK!"));
+  }
+  
+  Serial.print(F("\nSending humid val "));
+  Serial.print(humidity);
+  Serial.print("...");
+  if (! humid_topic.publish(humidity)) {
     Serial.println(F("Failed"));
   } else {
     Serial.println(F("OK!"));
@@ -215,12 +232,12 @@ void gettemperature() {
 
     // Reading temperature for humidity takes about 250 milliseconds!
     // Sensor readings may also be up to 2 seconds 'old' (it's a very slow sensor)
-    //humidity = dht.readHumidity();          // Read humidity (percent)
+    humidity = dht.readHumidity();          // Read humidity (percent)
     //temp_f = dht.readTemperature(true);     // Read temperature as Fahrenheit
     temp_c = dht.readTemperature();    // Read temperature as Celsius
     // Check if any reads failed and exit early (to try again).
     if (isnan(temp_c) || temp_c != 0 )
-      if (isnan(temp_c)) {
+      if (isnan(temp_c) || isnan(humidity) || temp_c != 0 || humidity != 0 ) {
         Serial.println("Failed to read from DHT sensor!");
         return;
         }
