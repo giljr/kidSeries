@@ -47,8 +47,8 @@
 
 /************************* WiFi Access Point *********************************/
 
-const char* WLAN_SSID     = "YourRouterSSID";
-const char* WLAN_PASS     = "YourRouterPassword";
+#define WLAN_SSID     = "YourRouterSSID";
+#define WLAN_PASS     = "YourRouterPassword";
 
 //ESP8266WebServer server(80);
 
@@ -100,10 +100,12 @@ Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO
 // Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
 //Adafruit_MQTT_Publish test_topic = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/test");
 Adafruit_MQTT_Publish temp_topic = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/temp");
+Adafruit_MQTT_Publish humid_topic = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/humid");
 /****************************** Subscriptions*********************************/
 // Setup a feed called 'test' for subscribing to changes.
 //Adafruit_MQTT_Subscribe test_subscription = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/test");
 Adafruit_MQTT_Subscribe temp_subscription = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/temp");
+Adafruit_MQTT_Subscribe humid_subscription = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/humid");
 
 /***************************  MQTT Conn   ************************************/
 
@@ -173,6 +175,7 @@ void setup(void)
   // Setup MQTT subscription for onoff feed.
   //mqtt.subscribe(&test_subscription);
   mqtt.subscribe(&temp_subscription);
+  mqtt.subscribe(&humid_subscription);
 }
 
 //uint32_t x=0;    // Mock data
@@ -192,7 +195,7 @@ void loop(void)
   
  /****************************** Subscript  ***********************************/
  Adafruit_MQTT_Subscribe *subscription;
-  while ((subscription = mqtt.readSubscription(5000))) {
+  /*while ((subscription = mqtt.readSubscription(5000))) {
     //if (subscription == &test_subscription) {
     if (subscription == &temp_subscription) {
       //Serial.print(F("Got: "));
@@ -201,7 +204,18 @@ void loop(void)
       Serial.println((char *)temp_subscription.lastread);
       
     }
+  }*/
+  while ((subscription = mqtt.readSubscription(10000))) {
+    if (subscription == &humid_subscription) {
+      Serial.print(F("Got humid: "));
+      Serial.println((char *)humid_subscription.lastread);
+    }
+    else {
+      Serial.print(F("Got temp: "));
+      Serial.println((char *)temp_subscription.lastread);
+    }
   }
+  
  /****************************** Publish  **********************************/
    // Now we can publish stuff!
   //Serial.print(F("\nSending test val "));
@@ -215,7 +229,16 @@ void loop(void)
   } else {
     Serial.println(F("OK!"));
  }
-}  
+  
+  Serial.print(F("\nSending humid val "));
+  Serial.print(humidity);
+  Serial.print("...");
+  if (! humid_topic.publish(humidity)) {
+    Serial.println(F("Failed"));
+  } else {
+    Serial.println(F("OK!"));
+  }
+  
 /****************************** Ping  ***************************************/
 
   // ping the server to keep the mqtt connection alive
@@ -225,6 +248,7 @@ void loop(void)
     mqtt.disconnect();
   }
 */
+}
  /********************************* MQTT Conn  ********************************/
 // Function to connect and reconnect as necessary to the MQTT server.
 // Should be called in the loop function and it will take care if connecting.
@@ -273,7 +297,7 @@ void gettemperature() {
     temp_c = dht.readTemperature();    // Read temperature as Celsius
     // Check if any reads failed and exit early (to try again).
     //if (isnan(humidity) || isnan(temp_f)) {
-    if (isnan(humidity) || isnan(temp_c)) {
+    if (isnan(temp_c) || isnan(humidity) || temp_c != 0 || humidity != 0) {
       Serial.println("Failed to read from DHT sensor!");
       return;
     }
