@@ -16,7 +16,7 @@
      temperature and humidity data to the Adafruit-IO Broker through the MQTT protocol using ESP8266 module.
      It's quite a task, right?
      How-to-use-it: Go to this link and click the history button to understand step-by-step. Thank you so much!! 
-     https://github.com/giljr/kidSeries/blob/master/_06_kidSerie_sketch_01_04.Adafruit_IO_FakeToReal_Feeds.ino
+     https://github.com/giljr/kidSeries/edit/master/_06_kidSerie_sketch_unique_Adafruit_IO_FakeToReal_Feeds.ino
      
      
    MCU:                  Arduino 1.6.12 - @16MHz       http://www.arduino.cc/
@@ -47,8 +47,8 @@
 
 /************************* WiFi Access Point *********************************/
 
-#define WLAN_SSID     = "YourRouterSSID";
-#define WLAN_PASS     = "YourRouterPassword";
+#define WLAN_SSID      "YourRouterSSID"
+#define WLAN_PASS      "YourRouterPassword"
 
 //ESP8266WebServer server(80);
 
