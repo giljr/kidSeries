@@ -33,21 +33,24 @@
    Based on ESP8266Webserver, DHTexample, and BlinkWithoutDelay (thank you)
    Version 1.0  5/3/2014  Version 1.0   Mike Barela / Tony DiCola from Adafruit.
 */
+ /******************************* Adafruit MQTT *******************************/
+#include "Adafruit_MQTT.h"
+#include "Adafruit_MQTT_Client.h"
 /******************************* Esp8266**************************************/
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h>
-#include <ESP8266WebServer.h>
+//#include <WiFiClient.h>
+//#include <ESP8266WebServer.h>
 /******************************* DHT Config **********************************/
-#include <DHT.h>
-#define DHTTYPE DHT11
-#define DHTPIN  2
+//#include <DHT.h>
+//#define DHTTYPE DHT11
+//#define DHTPIN  2
 
 /************************* WiFi Access Point *********************************/
 
-const char* ssid     = "YourRouterSSID";
-const char* password = "YourRouterPassword";
+const char* WLAN_SSID     = "YourRouterSSID";
+const char* WLAN_PASS     = "YourRouterPassword";
 
-ESP8266WebServer server(80);
+//ESP8266WebServer server(80);
 
 /*************************** DHT Init   **************************************/
 // Initialize DHT sensor
@@ -58,26 +61,59 @@ ESP8266WebServer server(80);
 // higher the value.  The default for a 16mhz AVR is a value of 6.  For an
 // Arduino Due that runs at 84mhz a value of 30 works.
 // This is for the ESP8266 processor on ESP-01
-DHT dht(DHTPIN, DHTTYPE, 15); // 15 works fine for ESP8266
+//DHT dht(DHTPIN, DHTTYPE, 15); // 15 works fine for ESP8266
 /*************************** DHT Data   **************************************/
 //float humidity, temp_f;  // Values read from sensor Fº
-float humidity, temp_c;  // Values read from sensor as Celsius
-String webString = "";   // String to display
+//float humidity, temp_c;  // Values read from sensor as Celsius
+//String webString = "";   // String to display
 /*************************** DHT Timing   ************************************/
 // Generally, you should use "unsigned long" for variables that hold time
-unsigned long previousMillis = 0;        // will store last temp was read
-const long interval = 2000;              // interval at which to read sensor
+//unsigned long previousMillis = 0;        // will store last temp was read
+//const long interval = 2000;              // interval at which to read sensor
 
-void handle_root() {
-  server.send(200, "text/plain", "Hello from the weather esp8266, read from /temp or /humidity");
-  delay(100);
-}
+//void handle_root() {
+//  server.send(200, "text/plain", "Hello from the weather esp8266, read from /temp or /humidity");
+//  delay(100);
+//}
+
+/************************* Adafruit.io Setup *********************************/
+
+#define AIO_SERVER      "io.adafruit.com"
+#define AIO_SERVERPORT  1883                   // use 8883 for SSL
+#define AIO_USERNAME    "...your AIO username (see https://accounts.adafruit.com)..."
+#define AIO_KEY         "...your AIO key..."
+
+/************ Global State (you don't need to change this!) ******************/
+
+// Create an ESP8266 WiFiClient class to connect to the MQTT server.
+WiFiClient client;
+// or... use WiFiFlientSecure for SSL
+//WiFiClientSecure client;
+
+// Setup the MQTT client class by passing in the WiFi client and MQTT server and login details.
+Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
+
+/****************************** Feeds ***************************************/
+/****************************** Topics ***************************************/
+// Setup a feed called 'test' for publishing.
+// Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
+Adafruit_MQTT_Publish test_topic = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/test");
+/****************************** Subscriptions*********************************/
+// Setup a feed called 'test' for subscribing to changes.
+Adafruit_MQTT_Subscribe test_subscription = Adafruit_MQTT_Subscribe(&mqtt, AIO_USERNAME "/feeds/test");
+
+/***************************  MQTT Conn   ************************************/
+
+// Bug workaround for Arduino 1.6.6, it seems to need a function declaration
+// for some reason (only affects ESP8266, likely an arduino-builder bug).
+void MQTT_connect();
 
 /****************************** Setup  ***************************************/
 void setup(void)
 {
   // You can open the Arduino IDE Serial Monitor window to see what the code is doing
   Serial.begin(115200);  // Serial connection from ESP-01 via 3.3v console cable
+  /*
   dht.begin();           // initialize temperature sensor
 
   // Connect to WiFi network
@@ -113,15 +149,100 @@ void setup(void)
 
   server.begin();
   Serial.println("HTTP server started");
+  */
+  Serial.println(F("Adafruit MQTT demo"));
+
+  // Connect to WiFi access point.
+  Serial.println(); Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(WLAN_SSID);
+
+  WiFi.begin(WLAN_SSID, WLAN_PASS);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println();
+
+  Serial.println("WiFi connected");
+  Serial.println("IP address: "); Serial.println(WiFi.localIP());
+
+  // Setup MQTT subscription for onoff feed.
+  mqtt.subscribe(&test_subscription);
 }
+
+uint32_t x=0;    // Mock data
 
 /****************************** Loop  ***************************************/
 void loop(void)
 {
-  server.handleClient();
+  //server.handleClient();
+  // Ensure the connection to the MQTT server is alive (this will make the first
+  // connection and automatically reconnect when disconnected).  See the MQTT_connect
+  // function definition further below.
+  MQTT_connect();
+
+  // this is our 'wait for incoming subscription packets' busy subloop
+  // try to spend your time here
+  
+ /****************************** Subscript  ***********************************/
+ Adafruit_MQTT_Subscribe *subscription;
+  while ((subscription = mqtt.readSubscription(5000))) {
+    if (subscription == &test_subscription) {
+      Serial.print(F("Got: "));
+      Serial.println((char *)test_subscription.lastread);
+    }
+  }
+ /****************************** Publish  **********************************/
+   // Now we can publish stuff!
+  Serial.print(F("\nSending test val "));
+  Serial.print(x);
+  Serial.print("...");
+  if (! test_topic.publish(x++)) {
+    Serial.println(F("Failed"));
+  } else {
+    Serial.println(F("OK!"));
+ }
+}  
+/****************************** Ping  ***************************************/
+
+  // ping the server to keep the mqtt connection alive
+  // NOT required if you are publishing once every KEEPALIVE seconds
+  /*
+  if(! mqtt.ping()) {
+    mqtt.disconnect();
+  }
+*/
+ /********************************* MQTT Conn  ********************************/
+// Function to connect and reconnect as necessary to the MQTT server.
+// Should be called in the loop function and it will take care if connecting.
+void MQTT_connect() {
+  int8_t ret;
+
+  // Stop if already connected.
+  if (mqtt.connected()) {
+    return;
+  }
+
+  Serial.print("Connecting to MQTT... ");
+
+  uint8_t retries = 3;
+  while ((ret = mqtt.connect()) != 0) { // connect will return 0 for connected
+       Serial.println(mqtt.connectErrorString(ret));
+       Serial.println("Retrying MQTT connection in 5 seconds...");
+       mqtt.disconnect();
+       delay(5000);  // wait 5 seconds
+       retries--;
+       if (retries == 0) {
+         // basically die and wait for WDT to reset me
+         while (1);
+       }
+  }
+  Serial.println("MQTT Connected!");
 }
 
-/****************************** Get Data From DHTxx  ************************/
+  /****************************** Get Data From DHTxx  ************************/
+  /*
 void gettemperature() {
   // Wait at least 2 seconds seconds between measurements.
   // if the difference between the current time and last time you read
@@ -145,4 +266,6 @@ void gettemperature() {
       return;
     }
   }
-}
+ */
+  
+
