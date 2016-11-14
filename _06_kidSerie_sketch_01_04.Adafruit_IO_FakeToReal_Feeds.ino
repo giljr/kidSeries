@@ -17,6 +17,7 @@
      It's quite a task, right?
 
      How-to-use-it: Go to this link and click the history button to understand step-by-step. Thank you so much!! 
+     https://github.com/giljr/kidSeries/blob/master/_06_kidSerie_sketch_01_04.Adafruit_IO_FakeToReal_Feeds.ino
      
      
    MCU:                  Arduino 1.6.12 - @16MHz       http://www.arduino.cc/
