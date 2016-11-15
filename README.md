@@ -6,7 +6,7 @@ Project: 00 #kidSerie - Hello World MIT App Inventor desscription: "intro to MIT
 Project: 01 #Kidserie - #ArduinoMeetsMITApp - Description: "This video will teach you how to control a LED on pin 13 of arduino using a bluetooth module, Arduino and MIT App Inventor 2." File1: _01_kidSerie_sketch_01.ConfigBT.ino  file2: _01_kidSerie_sketch_02.HelloBT.ino  
 #kidStronics vid: https://youtu.be/u1xqW6qtFXs file2: _01_kidSerie_sketch_01.ConfigBT.ino vid: https://youtu.be/lvLnOyy7pbo   page: https://goo.gl/R1j4tL
 
-Project: 02 #Kidserie -#BluetoothMITApp - 2 smartphone paired! description: "Explaining Bluetooth Server-Client Communications" vid: https://youtu.be/39aRySL5a5Y page: https://goo.gl/301oDG
+Project: 02 #Kidserie -#BluetoothMITApp - 2 smartphone paired! description:"Explaining Bluetooth Server-Client Communications" vid:https://youtu.be/39aRySL5a5Y page: https://goo.gl/301oDG
 
 Project: 03 #kidSerie - MIT App Inventor 2 Meets Esp8266!!! description: "This application demonstrates how to control an LED via smartphone app using MIT App Inventor 2 and Arduino." vid: https://goo.gl/cxn6t1 page: https://goo.gl/l3nqqZ
 
