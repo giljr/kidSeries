@@ -1,0 +1,7 @@
+//style.css
+
+//* "auto" makes the left and right margins center the wrapper */
+#wrap { 
+	width: 150px; 
+	margin: 0 auto; 
+}
