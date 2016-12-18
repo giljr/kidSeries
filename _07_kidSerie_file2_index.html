@@ -1,0 +1,23 @@
+//index.html
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Arduino</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    <div id="wrap">
+        <h3>Red:</h3>
+        <input id="red" type="range" min="0" max="255" step="1" value="0">
+
+        <h3>Green:</h3>
+        <input id="green" type="range" min="0" max="255" step="1" value="0">
+
+        <h3>Blue:</h3>
+        <input id="blue" type="range" min="0" max="255" step="1" value="0">
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="./client.js"></script>
+    </div>
+    </body>
+</html>
