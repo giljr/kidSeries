@@ -1,6 +1,8 @@
 # kidSeries
 kidsTronics youtube channel repo: https://goo.gl/cxn6t1
 
+Hi, Hobbyists. Besides the necessary files we are also offering all apks and aias. Each project is identified by its prefixes, such as: xx_project_name. You also have the links for each page and video. Thank you!
+
 Project: 00 #kidSerie - Hello World MIT App Inventor description: "intro to MIT App Inventor is a free, cloud-based service that you access using a web browser." vid: https://youtu.be/9AutSoBpTLc page: medium.com/kidsTronics: https://goo.gl/eBR867
 
 Project: 01 #Kidserie - #ArduinoMeetsMITApp - description: "This video will teach you how to control a LED on pin 13 of arduino using a bluetooth module, Arduino and MIT App Inventor 2." File1: _01_kidSerie_sketch_01.ConfigBT.ino file2: _01_kidSerie_sketch_02.HelloBT.ino vid: https://youtu.be/lvLnOyy7pbo   page: https://goo.gl/R1j4tL
