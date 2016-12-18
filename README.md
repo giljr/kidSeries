@@ -16,3 +16,5 @@ guide step by step till Home Dashboard!" 2 file1: _05_kidSerie_sketch_01.DHTServ
 
 Project: 06 #kidSerie - Go code? Explainning My Approach As Hobbyist!!! description: "This is my approach to how I pretend to be a programmer...This journey will help us understand how to send temperature and humidity data to the Adafruit-IO Broker through the MQTT protocol using ESP8266 module. It's quite a task, right?" file1: _06_kidSerie_sketch_unique_Adafruit_IO_FakeToReal_Feeds.ino  vid: https://youtu.be/lW2lvE2ZM8c page: https://goo.gl/V1mDru
 
+
+Project: 07 #kidSerie - MIT Meets Express Socket-io & J5 !!! description: "This tutorial brings a powerful arsenal:Express framework, together with the https://nodejs.org/en/, http://johnny-five.io/, http://johnny-five.io/ , http://socket.io/,  and Arduino on your mobile phone screen." file1: _07_kidSerie_sketch_ vid: page: 
