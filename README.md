@@ -1,7 +1,7 @@
 # kidSeries
 kidsTronics youtube channel repo: https://goo.gl/cxn6t1
 
-Hi, Hobbyists. Besides the necessary files we are also offering all apks and aias. Each project is identified by its prefixes, such as: xx_project_name. You also have the links for each page and video. Thank you!
+Hi, Hobbyists. Beyond the necessary files we are also offering all apks and aias. Each project is identified by its prefixes, such as: xx_project_name. You also have the links for each page and video. Thank you!
 
 Project: 00 #kidSerie - Hello World MIT App Inventor description: "intro to MIT App Inventor is a free, cloud-based service that you access using a web browser." vid: https://youtu.be/9AutSoBpTLc page: medium.com/kidsTronics: https://goo.gl/eBR867
 
