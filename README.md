@@ -22,3 +22,8 @@ Project: 06 #kidSerie - Go code? Explainning My Approach As Hobbyist!!! descript
 Project: 07 #kidSerie - MIT Meets Express Socket-io & J5 !!! description: "This tutorial brings a powerful arsenal: Express framework, together with the https://nodejs.org/en/, http://johnny-five.io/, http://johnny-five.io/ , http://socket.io/,  and Arduino on your mobile phone screen." file1: _07_kidSerie_file1_rgb.js  file2: _07_kidSerie_file2_index.html file3: _07_kidSerie_file3_client.js file4: _07_kidSerie_file4_package.json file5: _07_kidSerie_file5_style.css file6: _07_kidSerie_file5_readme.txt vid: https://youtu.be/brImrNc1qbQ   page: https://goo.gl/07ZMms
 
 Project: 08 #kidSerie - Park Assist I w/ MIT App Inventor 2 - Bluetooth + Arduino + MIT App + HC-SR04 Sonar -  Description: The rear parking assist system assists the driver during backward movement of the vehicle by chiming if any object is sensed within a distance of 5 cm behind the vehicle. This is the same files of this project GDrive: https://drive.google.com/open?id=0B8iMbc-iQqlUU0FoY21iaFNHY1E file1: _08_kidSerie_Park_Assist_I.aia  file2: _08_kidSerie_Park_Assist_I.apk file3: _08_kidSerie_sketch_01.No_Bluetooth.ino.ino  file4: _08_kidSerie_sketch_02.With_Bluetooth.ino.ino vid: https://goo.gl/KtxSz0   page: https://goo.gl/pj20lS
+
+
+Project: 10 #kidSerie - Arduino UNO - Quick Intro - A Workshop in BSB with the Kids :) -  Description: Hi, This is a special edition for the kids in BSB. GDrive:  file1: vid:   page: https://medium.com/kidstronics/arduino-uno-quick-intro-94c7c682740a
+
+
