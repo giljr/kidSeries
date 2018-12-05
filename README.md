@@ -24,6 +24,6 @@ Project: 07 #kidSerie - MIT Meets Express Socket-io & J5 !!! description: "This 
 Project: 08 #kidSerie - Park Assist I w/ MIT App Inventor 2 - Bluetooth + Arduino + MIT App + HC-SR04 Sonar -  Description: The rear parking assist system assists the driver during backward movement of the vehicle by chiming if any object is sensed within a distance of 5 cm behind the vehicle. This is the same files of this project GDrive: https://drive.google.com/open?id=0B8iMbc-iQqlUU0FoY21iaFNHY1E file1: _08_kidSerie_Park_Assist_I.aia  file2: _08_kidSerie_Park_Assist_I.apk file3: _08_kidSerie_sketch_01.No_Bluetooth.ino.ino  file4: _08_kidSerie_sketch_02.With_Bluetooth.ino.ino vid: https://goo.gl/KtxSz0   page: https://goo.gl/pj20lS
 
 
-Project: 10 #kidSerie - Arduino UNO - Quick Intro - A Workshop in BSB with the Kids :) -  Description: Hi, This is a special edition for the kids in BSB. GDrive:  file1: vid:   page: https://medium.com/kidstronics/arduino-uno-quick-intro-94c7c682740a
+Project: 10 #kidSerie - Arduino UNO - Quick Intro - A Workshop in BSB with the Kids :) -  Description: Hi, This is a special edition for the kids in BSB. GDrive: https://drive.google.com/drive/folders/1SUo8Xk3Rjt9J-Bahzr7DZTVWYDGaxTSY?usp=sharing  files: _10_Blinking_LED_01.ino, _10_PushButton_02.ino, _10_SimulateAnalogOutput_03.ino, _10_ControllingServo_04.ino, _10_All_Features_05.ino   vid:   page: https://medium.com/kidstronics/arduino-uno-quick-intro-94c7c682740a
 
 
