@@ -23,7 +23,7 @@ This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License v3 as published by the Free Software Foundation
 */
 #include <SoftwareSerial.h>
-SoftwareSerial bluetooth(2, 3) // Demand the lib SoftwareSerial 
+SoftwareSerial bluetooth(2, 3);// Demand the lib SoftwareSerial; Fixing bugs - Thanks to Joey Tomato 
 int blueLed = 9;               // to get arduino's port Rx & Tx free  
                                // to debug in Serial
 int orangeLed = 10;            // Use port 9 and 10 for Blue and 
